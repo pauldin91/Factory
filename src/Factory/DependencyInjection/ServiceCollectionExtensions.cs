@@ -13,7 +13,7 @@ namespace Factory.DependencyInjection
                 .GetTypes()
                 .Where(s => s.IsAssignableTo(typeof(IImplementor)) && !s.IsInterface && !s.IsAbstract);
 
-            services.AddSingleton(typeof(IFactory), typeof(FactoryImpl));
+            services.AddSingleton(typeof(IFactory), typeof(FactoryWrapperImpl));
             
             foreach (var implementor in implementors)
             {

@@ -1,9 +1,8 @@
 ﻿
 namespace Factory.Interfaces
 {
-    public interface IFactory
+    public interface IFactory : IEnumerable<IImplementor>
     {
-        IReadOnlyDictionary<Type, IImplementor> Cache { get; }
 
         IImplementor GetInstance(Type type);
     }

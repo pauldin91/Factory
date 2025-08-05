@@ -13,7 +13,7 @@ namespace Factory.Tests
 
         public FactoryTests()
         {
-            _factory = new FactoryImpl();
+            _factory = new FactoryWrapperImpl();
         }
 
         [Test]
