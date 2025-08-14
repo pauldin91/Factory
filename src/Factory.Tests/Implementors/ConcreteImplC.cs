@@ -9,5 +9,9 @@ namespace Factory.Tests.Implementors
 {
     internal class ConcreteImplC : IImplementor
     {
+        public string GetMsg()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 namespace Factory.Interfaces
 {
-    public interface IFactory : IEnumerable<IImplementor>
+    
+    public interface IFactory<out TIfc> : IEnumerable<TIfc>
     {
-
-        IImplementor GetInstance(Type type);
+        TIfc GetOrAddInstance(Type key);
     }
 }
