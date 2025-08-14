@@ -1,21 +1,32 @@
 ﻿using Factory.Interfaces;
 using System.Collections;
+using System.Collections.Concurrent;
 
 namespace Factory
 {
     public class FactoryWrapperImpl<TIfc> : IFactory<TIfc>
     {
-        private readonly Dictionary<Type, TIfc> _cache = [];
+        private readonly ConcurrentDictionary<Type, TIfc> _cache = [];
+        private readonly ConcurrentDictionary<string, TIfc> _generalCache = [];
         
         public TIfc GetOrAddInstance(Type type)
         {
-            if (_cache.TryGetValue(type, out var impl))
-            {
-                return impl;
-            }
-            var instance = (TIfc)Activator.CreateInstance(type);
-            _cache.Add(type, instance);
-            return instance;
+            return _cache.GetOrAdd(type, (t) => (TIfc)Activator.CreateInstance(type));
+        }
+        
+        public TIfc GetOrAddInstance<TImpl>(string typeName)
+        {
+            
+            return _generalCache.GetOrAdd(typeName, (t) =>
+                {
+                    var type = typeof(TImpl)
+                        .Assembly
+                        .GetTypes()
+                        .Where(t => t.IsClass && !t.IsAbstract && typeof(TIfc).IsAssignableFrom(t))
+                        .FirstOrDefault(s=>s.Name.Equals(typeName)) ?? throw new ArgumentException("type not found");
+                    return GetOrAddInstance(type);
+                }
+            );
         }
         
 
@@ -28,5 +39,6 @@ namespace Factory
         {
             return _cache.Values.GetEnumerator();
         }
+        
     }
 }

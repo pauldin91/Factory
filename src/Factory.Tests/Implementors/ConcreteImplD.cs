@@ -6,7 +6,8 @@ namespace Factory.Tests.Implementors
     {
         public string GetMsg()
         {
-            throw new NotImplementedException();
+            return $"Inside {nameof(ConcreteImplD)}";
+
         }
     }
 }

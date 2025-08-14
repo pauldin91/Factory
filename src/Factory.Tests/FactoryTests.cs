@@ -1,8 +1,5 @@
 using Factory.Interfaces;
 using Factory.Tests.Implementors;
-using FluentAssertions;
-using Moq;
-using System.ComponentModel;
 
 namespace Factory.Tests
 {
@@ -32,7 +29,7 @@ namespace Factory.Tests
         }
 
         [Test]
-        public void TestThatFactoryShouldReturnInstancesAssemblyScan()
+        public void TestThatFactoryShouldReturnInstancesByType()
         {
             
             var types = typeof(ConcreteImplA)
@@ -45,9 +42,28 @@ namespace Factory.Tests
             {
                 var instance = _factory.GetOrAddInstance(item.Value);
                 Assert.That(instance.GetType(), Is.EqualTo(item.Value));
+                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item.Key}"));
                 
             }
-
+        }
+        
+        [Test]
+        public void TestThatFactoryShouldReturnInstancesByTypeName()
+        {
+            
+            var types = typeof(ConcreteImplA)
+                .Assembly
+                .GetTypes()
+                .Where(t => t.IsAssignableTo(typeof(IImplementor)) && !t.IsAbstract && !t.IsInterface)
+                .Select(s=>s.Name)
+                .ToList();
+            
+            foreach (var item in types)
+            {
+                var instance = _factory.GetOrAddInstance<ConcreteImplA>(item);
+                Assert.That(instance.GetType().Name, Is.EqualTo(item));
+                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item}"));
+            }
         }
     }
 }
