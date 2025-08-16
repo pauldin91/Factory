@@ -11,7 +11,7 @@ namespace Factory
         
         public TIfc GetOrAddInstance(Type type)
         {
-            return _cache.GetOrAdd(type, (t) => (TIfc)Activator.CreateInstance(type));
+            return _cache.GetOrAdd(type, (t) => (TIfc)Activator.CreateInstance(type) ?? throw new ArgumentException(type.Name));
         }
         
         public TIfc GetOrAddInstance<TImpl>(string typeName)
@@ -22,7 +22,7 @@ namespace Factory
                     var type = typeof(TImpl)
                         .Assembly
                         .GetTypes()
-                        .Where(t => t.IsClass && !t.IsAbstract && typeof(TIfc).IsAssignableFrom(t))
+                        .Where(t => t is { IsClass: true, IsAbstract: false } && typeof(TIfc).IsAssignableFrom(t))
                         .FirstOrDefault(s=>s.Name.Equals(typeName)) ?? throw new ArgumentException("type not found");
                     return GetOrAddInstance(type);
                 }

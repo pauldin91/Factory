@@ -54,7 +54,7 @@ namespace Factory.Tests
             var types = typeof(ConcreteImplA)
                 .Assembly
                 .GetTypes()
-                .Where(t => t.IsAssignableTo(typeof(IImplementor)) && !t.IsAbstract && !t.IsInterface)
+                .Where(t => t.IsAssignableTo(typeof(IImplementor)) && t is { IsAbstract: false, IsInterface: false })
                 .Select(s=>s.Name)
                 .ToList();
             
