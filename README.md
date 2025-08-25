@@ -41,7 +41,7 @@ public class SmsService : INotificationService
     public void Notify() => Console.WriteLine("Sending SMS...");
 }
 ```
-And can use it like this
+#### Usage
 ```csharp
 public class DemoService(IFactory<INotificationService> factory)
 {
