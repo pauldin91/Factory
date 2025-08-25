@@ -10,7 +10,23 @@ namespace Factory.Tests
     {
 
         private readonly IFactory<IEncoder> _factory = new FactoryWrapperImpl<IEncoder>();
-        
+        private readonly Dictionary<string,string> cfgSection = new()
+        {
+                
+            { "EncoderOptions:Encoders:.abc", "EncoderFormatA"},
+            { "EncoderOptions:Encoders:.bcd", "EncoderFormatB"},
+            { "EncoderOptions:Encoders:.cde", "EncoderFormatC"},
+            { "EncoderOptions:Encoders:.def", "EncoderFormatD"},
+            { "EncoderOptions:Encoders:.efg", "EncoderFormatE"},
+        };
+        private readonly Dictionary<string,Type> _actualTypes = new()
+        {
+            { ".abc", typeof(EncoderFormatA)},
+            { ".bcd", typeof(EncoderFormatB)},
+            { ".cde", typeof(EncoderFormatC)},
+            { ".def", typeof(EncoderFormatD)},
+            { ".efg", typeof(EncoderFormatE)},
+        };
         
         
         [Test]
@@ -59,45 +75,18 @@ namespace Factory.Tests
         [Test]
         public void TestGetOrAddInstance_ShouldReturnInstances_ByTypeInAssembly()
         {
-
-            var types = new Dictionary<string, Tuple<string,Type>>
-            {
-                {".abc",Tuple.Create(nameof(EncoderFormatA).Split('.').Last(),typeof(EncoderFormatA))},
-                {".bcd",Tuple.Create(nameof(EncoderFormatB).Split('.').Last(),typeof(EncoderFormatB))},
-                {".cde",Tuple.Create(nameof(EncoderFormatC).Split('.').Last(),typeof(EncoderFormatC))},
-                {".def",Tuple.Create(nameof(EncoderFormatD).Split('.').Last(),typeof(EncoderFormatD))},
-                {".efg",Tuple.Create(nameof(EncoderFormatE).Split('.').Last(),typeof(EncoderFormatE))},
-            };
             
-            foreach (var item in types)
+            foreach (var item in cfgSection)
             {
-                var instance = _factory.GetOrAddInstance<EncoderFormatA>(item.Value.Item1);
-                Assert.That(instance.GetType(), Is.EqualTo(item.Value.Item2));
-                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item.Value.Item1}"));
+                var instance = _factory.GetOrAddInstance<EncoderFormatA>(item.Value);
+                Assert.That(instance.GetType(), Is.EqualTo(_actualTypes[item.Key.Split(":").Last()]));
+                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item.Value}"));
             }
         }
         
         [Test]
         public void TestGetOrAddInstance_ShouldReturnInstances_ByTypeNameInAssemblyBasedOnConfiguration()
         {
-            var cfgSection = new Dictionary<string, string>
-            {
-                
-                { "EncoderOptions:Encoders:.abc", "EncoderFormatA"},
-                { "EncoderOptions:Encoders:.bcd", "EncoderFormatB"},
-                { "EncoderOptions:Encoders:.cde", "EncoderFormatC"},
-                { "EncoderOptions:Encoders:.def", "EncoderFormatD"},
-                { "EncoderOptions:Encoders:.efg", "EncoderFormatE"},
-            };
-            var actualTypes = new Dictionary<string, Type>
-            {
-                { ".abc", typeof(EncoderFormatA)},
-                { ".bcd", typeof(EncoderFormatB)},
-                { ".cde", typeof(EncoderFormatC)},
-                { ".def", typeof(EncoderFormatD)},
-                { ".efg", typeof(EncoderFormatE)},
-            };
-
             var cfg = new ConfigurationBuilder()
                 .AddInMemoryCollection(cfgSection)
                 .Build();
@@ -110,7 +99,7 @@ namespace Factory.Tests
             foreach (var item in options.Encoders)
             {
                 var instance = _factory.GetOrAddInstance<EncoderFormatA>(item.Value);
-                Assert.That(instance.GetType(), Is.EqualTo(actualTypes[item.Key]));
+                Assert.That(instance.GetType(), Is.EqualTo(_actualTypes[item.Key]));
                 Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {options.Encoders[item.Key]}"));
             }
         }
