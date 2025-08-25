@@ -9,6 +9,12 @@ namespace Factory
         private readonly ConcurrentDictionary<Type, TIfc> _cache = [];
         private readonly ConcurrentDictionary<string, TIfc> _generalCache = [];
         
+        
+        public TIfc GetOrAddInstance<T>()
+        where T : TIfc,new()
+        {
+            return _cache.GetOrAdd(typeof(T), (t) => new T() ?? throw new ArgumentException(typeof(T).Name));
+        }
         public TIfc GetOrAddInstance(Type type)
         {
             return _cache.GetOrAdd(type, (t) => (TIfc)Activator.CreateInstance(type) ?? throw new ArgumentException(type.Name));

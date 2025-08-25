@@ -8,7 +8,7 @@ namespace Factory.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddFactory<TIfc,TImpl>(this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        public static IServiceCollection AddFactory<TIfc,TImpl>(this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Singleton)
         {
             if(!typeof(TIfc).IsInterface)
                 throw new ArgumentException(string.Format($"Type {typeof(TIfc).FullName} must be an interface."));
@@ -21,11 +21,12 @@ namespace Factory.DependencyInjection
                 .GetTypes()
                 .Where(s => s.IsAssignableTo(typeof(TIfc)) && !s.IsInterface && !s.IsAbstract);
 
-            foreach (var implementor in implementors)
+            var factory = new FactoryWrapperImpl<TIfc>();
+            foreach (var impl in implementors)
             {
-                services.Add(new ServiceDescriptor(typeof(TIfc), implementor, lifetime));
+                _ = factory.GetOrAddInstance(impl);
             }
-
+            
             services.Add(new ServiceDescriptor(typeof(IFactory<>),typeof(FactoryWrapperImpl<>),lifetime));
 
             return services;

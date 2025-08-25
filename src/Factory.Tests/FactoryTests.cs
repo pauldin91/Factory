@@ -9,7 +9,7 @@ namespace Factory.Tests
         private readonly IFactory<IImplementor> _factory = new FactoryWrapperImpl<IImplementor>();
 
         [Test]
-        public void TestThatFactoryReturnsImplementor()
+        public void TestGetInstance_ShouldReturn_ImplementorByType()
         {
             var typeA = typeof(ConcreteImplA);
             var typeC = typeof(ConcreteImplC);
@@ -19,9 +19,20 @@ namespace Factory.Tests
             Assert.That(typeC.IsEquivalentTo(_factory.GetOrAddInstance(typeC).GetType()));
             Assert.That(typeE.IsEquivalentTo(_factory.GetOrAddInstance(typeE).GetType()));
         }
+        [Test]
+        public void TestGetInstance_ShouldReturn_ImplementorByGenericArgument()
+        {
+            var typeA = typeof(ConcreteImplA);
+            var typeC = typeof(ConcreteImplC);
+            var typeE = typeof(ConcreteImplE);
+
+            Assert.That(typeA.IsEquivalentTo(_factory.GetOrAddInstance<ConcreteImplA>().GetType()));
+            Assert.That(typeC.IsEquivalentTo(_factory.GetOrAddInstance<ConcreteImplC>().GetType()));
+            Assert.That(typeE.IsEquivalentTo(_factory.GetOrAddInstance<ConcreteImplE>().GetType()));
+        }
 
         [Test]
-        public void TestThatFactoryShouldThrowInvalidCastExceptionForNonImplewmentingClasses()
+        public void TestThatFactory_ShouldThrowInvalidCastException_ForNonImplementingClasses()
         {
             var typeNot = typeof(NotImplementor);
 
@@ -29,7 +40,7 @@ namespace Factory.Tests
         }
 
         [Test]
-        public void TestThatFactoryShouldReturnInstancesByType()
+        public void TestGetOrAddInstance_ShouldReturn_CorrectImplementationByTypeName()
         {
             
             var types = typeof(ConcreteImplA)
@@ -50,19 +61,21 @@ namespace Factory.Tests
         [Test]
         public void TestThatFactoryShouldReturnInstancesByTypeName()
         {
-            
-            var types = typeof(ConcreteImplA)
-                .Assembly
-                .GetTypes()
-                .Where(t => t.IsAssignableTo(typeof(IImplementor)) && t is { IsAbstract: false, IsInterface: false })
-                .Select(s=>s.Name)
-                .ToList();
+
+            var types = new Dictionary<string, Tuple<string,Type>>
+            {
+                {"a",Tuple.Create<string,Type>(nameof(ConcreteImplA),typeof(ConcreteImplA))},
+                {"b",Tuple.Create<string,Type>(nameof(ConcreteImplB),typeof(ConcreteImplB))},
+                {"c",Tuple.Create<string,Type>(nameof(ConcreteImplC),typeof(ConcreteImplC))},
+                {"d",Tuple.Create<string,Type>(nameof(ConcreteImplD),typeof(ConcreteImplD))},
+                {"e",Tuple.Create<string,Type>(nameof(ConcreteImplE),typeof(ConcreteImplE))},
+            };
             
             foreach (var item in types)
             {
-                var instance = _factory.GetOrAddInstance<ConcreteImplA>(item);
-                Assert.That(instance.GetType().Name, Is.EqualTo(item));
-                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item}"));
+                var instance = _factory.GetOrAddInstance<ConcreteImplA>(item.Value.Item1);
+                Assert.That(instance.GetType(), Is.EqualTo(item.Value.Item2));
+                Assert.That(instance.GetMsg(), Is.EqualTo($"Inside {item.Value.Item1}"));
             }
         }
     }
