@@ -1,8 +1,8 @@
 ﻿using Factory.DependencyInjection;
 using Factory.Interfaces;
-using Factory.Tests.Implementors;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+
+using Factory.Tests.Models.Encoders;
 
 namespace Factory.Tests
 {
@@ -11,17 +11,17 @@ namespace Factory.Tests
         private readonly IServiceProvider _sp;
         private readonly HashSet<Type> _types =
         [
-            typeof(ConcreteImplA), typeof(ConcreteImplB), typeof(ConcreteImplC), typeof(ConcreteImplD),
-            typeof(ConcreteImplE)
+            typeof(EncoderFormatA), typeof(EncoderFormatB), typeof(EncoderFormatC), typeof(EncoderFormatD),
+            typeof(EncoderFormatE)
         ];
 
         public DependencyInjectionTests()
         {
             _sp = new ServiceCollection()
-            .AddFactory<IImplementor,ConcreteImplA>()
+            .AddFactory<IEncoder,EncoderFormatA>()
             .BuildServiceProvider();
 
-            var factory = _sp.GetRequiredService<IFactory<IImplementor>>();
+            var factory = _sp.GetRequiredService<IFactory<IEncoder>>();
 
             foreach (var type in _types)
             {
@@ -34,7 +34,7 @@ namespace Factory.Tests
         [Test]
         public void TestRegistrationWithAssembly()
         {
-            var factory = _sp.GetRequiredService<IFactory<IImplementor>>();
+            var factory = _sp.GetRequiredService<IFactory<IEncoder>>();
             foreach (var type in _types)
             {
                 var concrete = factory.GetOrAddInstance(type);
@@ -45,7 +45,7 @@ namespace Factory.Tests
         [Test]
         public void TestThatFactoryCachesAllImplementators()
         {
-            var factory = _sp.GetRequiredService<IFactory<IImplementor>>();
+            var factory = _sp.GetRequiredService<IFactory<IEncoder>>();
             Assert.That(factory.All(s=> _types.Contains(s.GetType())), Is.True);
         }
     }

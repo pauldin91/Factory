@@ -1,7 +1,8 @@
 ﻿namespace Factory.Tests
 {
-    public interface IImplementor
+    public interface IEncoder
     {
         string GetMsg();
+        string Encode();
     }
 }
