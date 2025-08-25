@@ -14,9 +14,10 @@
     and a type in implementations assembly
 
 
-## Usage
+## Example
 
 ### The Interface
+
 #### IService.cs
 ```csharp
 public interface INotificationService
@@ -24,16 +25,17 @@ public interface INotificationService
     void Notify();
 }
 ```
-```csharp
 ### The Implementations 
+
 #### EmailService.cs
+```csharp
 public class EmailService : INotificationService
 {
     public void Notify() => Console.WriteLine("Sending Email...");
 }
 ```
-```csharp 
 #### SmsService.cs
+```csharp 
 public class SmsService : INotificationService
 {
     public void Notify() => Console.WriteLine("Sending SMS...");
