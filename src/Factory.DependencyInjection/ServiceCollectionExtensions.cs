@@ -7,7 +7,7 @@ namespace Factory.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddFactory<TIfc,TImpl>(this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Singleton)
-        where TImpl : class,TIfc
+            where TImpl : class,TIfc
         {
             if(!typeof(TIfc).IsInterface)
                 throw new ArgumentException(string.Format($"Type {typeof(TIfc).FullName} must be an interface."));

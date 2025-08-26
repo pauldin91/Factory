@@ -4,10 +4,14 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-		<PackageId>Factory</PackageId>
+		<PackageId>Factory.DependencyInjection</PackageId>
 		<Version>1.0.0</Version>
 		<Authors>pauldin91</Authors>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
+    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Factory\Factory.csproj" />
