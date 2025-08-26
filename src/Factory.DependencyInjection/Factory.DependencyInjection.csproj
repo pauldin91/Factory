@@ -4,6 +4,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+		<PackageId>Factory</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>pauldin91</Authors>
     </PropertyGroup>
 
     <ItemGroup>

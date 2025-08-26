@@ -29,8 +29,8 @@ namespace Factory
                         .Assembly
                         .GetTypes()
                         .Where(t => t is { IsClass: true, IsAbstract: false } && typeof(TIfc).IsAssignableFrom(t))
-                        .FirstOrDefault(s=>s.Name.Equals(typeName,StringComparison.CurrentCultureIgnoreCase) || 
-                                           s.Name.EndsWith(typeName,StringComparison.CurrentCultureIgnoreCase)) ?? throw new ArgumentException("type not found");
+                        .FirstOrDefault(s=>s.Name.Equals(t,StringComparison.CurrentCultureIgnoreCase) || 
+                                           s.Name.EndsWith(t,StringComparison.CurrentCultureIgnoreCase)) ?? throw new ArgumentException("type not found");
                     return GetOrAddInstance(type);
                 }
             );
