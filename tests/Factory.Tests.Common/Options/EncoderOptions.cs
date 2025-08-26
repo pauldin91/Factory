@@ -1,4 +1,4 @@
-namespace Factory.Tests.Options;
+namespace Factory.Tests.Common.Options;
 
 public class EncoderOptions
 {

@@ -1,4 +1,4 @@
-﻿namespace Factory.Tests.Models.NotEncoders
+﻿namespace Factory.Tests.Common.Models.NotEncoders
 {
     public class NotEncoder
     {

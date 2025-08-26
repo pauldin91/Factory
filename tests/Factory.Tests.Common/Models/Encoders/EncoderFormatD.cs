@@ -1,6 +1,6 @@
 ﻿
 
-namespace Factory.Tests.Models.Encoders
+namespace Factory.Tests.Common.Models.Encoders
 {
     public class EncoderFormatD : IEncoder
     {

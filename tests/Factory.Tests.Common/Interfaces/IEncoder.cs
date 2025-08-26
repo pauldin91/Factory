@@ -1,4 +1,4 @@
-﻿namespace Factory.Tests
+﻿namespace Factory.Tests.Common
 {
     public interface IEncoder
     {

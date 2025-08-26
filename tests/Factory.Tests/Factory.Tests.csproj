@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Factory.DependencyInjection\Factory.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\src\Factory\Factory.csproj" />
+    <ProjectReference Include="..\Factory.Tests.Common\Factory.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

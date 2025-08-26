@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.DependencyInjection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DADE705E-79BA-45B0-AAAB-A6F7B120D98E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.Tests.Common", "tests\Factory.Tests.Common\Factory.Tests.Common.csproj", "{1FBB679E-11CF-4A69-BD2A-DF6D316AE513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.Tests.DependencyInjection", "tests\Factory.Tests.DependencyInjection\Factory.Tests.DependencyInjection.csproj", "{00DE2F26-7BD1-4F24-A67A-61A9D924C36A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,14 @@ Global
 		{464075D4-DB8E-4389-880C-D46DF74E445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{464075D4-DB8E-4389-880C-D46DF74E445E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{464075D4-DB8E-4389-880C-D46DF74E445E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FBB679E-11CF-4A69-BD2A-DF6D316AE513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FBB679E-11CF-4A69-BD2A-DF6D316AE513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FBB679E-11CF-4A69-BD2A-DF6D316AE513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FBB679E-11CF-4A69-BD2A-DF6D316AE513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DE2F26-7BD1-4F24-A67A-61A9D924C36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DE2F26-7BD1-4F24-A67A-61A9D924C36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DE2F26-7BD1-4F24-A67A-61A9D924C36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DE2F26-7BD1-4F24-A67A-61A9D924C36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +51,7 @@ Global
 		{B3324A8E-A8E4-4162-A2AA-3CD61A5250A1} = {55A4B9A2-5D43-4D95-BE4B-8C1C713AB92E}
 		{464075D4-DB8E-4389-880C-D46DF74E445E} = {55A4B9A2-5D43-4D95-BE4B-8C1C713AB92E}
 		{048B3D57-0277-4DAC-8141-18C524B5A0E4} = {DADE705E-79BA-45B0-AAAB-A6F7B120D98E}
+		{1FBB679E-11CF-4A69-BD2A-DF6D316AE513} = {DADE705E-79BA-45B0-AAAB-A6F7B120D98E}
+		{00DE2F26-7BD1-4F24-A67A-61A9D924C36A} = {DADE705E-79BA-45B0-AAAB-A6F7B120D98E}
 	EndGlobalSection
 EndGlobal

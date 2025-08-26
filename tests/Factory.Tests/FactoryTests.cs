@@ -1,7 +1,8 @@
 using Factory.Interfaces;
-using Factory.Tests.Models.Encoders;
-using Factory.Tests.Models.NotEncoders;
-using Factory.Tests.Options;
+using Factory.Tests.Common;
+using Factory.Tests.Common.Models.Encoders;
+using Factory.Tests.Common.Models.NotEncoders;
+using Factory.Tests.Common.Options;
 using Microsoft.Extensions.Configuration;
 
 namespace Factory.Tests

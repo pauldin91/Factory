@@ -1,10 +1,12 @@
 ﻿using Factory.DependencyInjection;
 using Factory.Interfaces;
+using Factory.Tests.Common;
+using Factory.Tests.Common.Models.Encoders;
 using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 
-using Factory.Tests.Models.Encoders;
 
-namespace Factory.Tests
+namespace Factory.Tests.DependencyInjection
 {
     public class DependencyInjectionTests : IDisposable
     {
