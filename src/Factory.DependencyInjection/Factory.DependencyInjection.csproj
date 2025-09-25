@@ -4,10 +4,20 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-		<PackageId>Factory.DependencyInjection</PackageId>
+		<PackageId>DynamicFactory.DependencyInjection</PackageId>
 		<Version>1.0.0</Version>
 		<Authors>pauldin91</Authors>
+		<Description>Dependency injection support for factory implementation</Description>
+		<RepositoryUrl>https://github.com/pauldin91/Factory</RepositoryUrl>
+		<PackageTags>dependency-injection, factory, dynamic</PackageTags>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+		<None Include="..\..\README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />

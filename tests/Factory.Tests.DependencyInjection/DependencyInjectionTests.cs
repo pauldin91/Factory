@@ -48,7 +48,7 @@ namespace Factory.Tests.DependencyInjection
         public void TestThatFactoryCachesAllImplementators()
         {
             var factory = _sp.GetRequiredService<IFactory<IEncoder>>();
-            Assert.That(factory.All(s=> _types.Contains(s.GetType())), Is.True);
+            Assert.That(factory.GeneralCache.All(s=> _types.Contains(s.GetType())), Is.True);
         }
     }
 }
