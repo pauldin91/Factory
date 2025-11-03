@@ -72,7 +72,7 @@ public class DemoService(IFactory<INotificationService> factory)
 
 #### appsettings.json
 
-````csharp
+```csharp
 {
   "RealWorldOptions":{
 
@@ -83,12 +83,15 @@ public class DemoService(IFactory<INotificationService> factory)
     }
   }
 }
+```
 
 #### RealWorldOptions.cs
 
+```csharp
 public class RealWorldOptions {
   public Dictionary<string,string> CodeToServiceMap { get; set; }
 }
+```
 
 #### RealWorldService.cs
 
@@ -110,4 +113,4 @@ public class RealWorldService
     }
   }
 }
-````
+```
