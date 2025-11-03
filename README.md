@@ -88,7 +88,8 @@ public class DemoService(IFactory<INotificationService> factory)
 #### RealWorldOptions.cs
 
 ```csharp
-public class RealWorldOptions {
+public class RealWorldOptions
+{
   public Dictionary<string,string> CodeToServiceMap { get; set; }
 }
 ```
@@ -98,19 +99,22 @@ public class RealWorldOptions {
 ```csharp
 public class RealWorldService
 {
-  private readonly Dictionary<string,string> _codeToServiceCache = new();
+  private readonly Dictionary<string, string> _codeToServiceCache = new();
   private readonly IFactory<INotificationService> _factory;
-  public RealWorldService(IConfiguration configuration,IFactory<INotificationService> factory){
-    _factory = factory;
-    _codeToServiceCache = ConfigurationBinder.Get<RealWorldOptions>(configuration.GetRequiredSection(nameof(RealWorldOptions)))!.CodeToServiceMap;
+
+  public RealWorldService(IConfiguration configuration, IFactory<INotificationService> factory)
+  {
+      _factory = factory;
+      _codeToServiceCache = ConfigurationBinder.Get<RealWorldOptions>(configuration.GetRequiredSection(nameof(RealWorldOptions)))!.CodeToServiceMap;
   }
 
   public void DemoByCode(string code)
   {
-    if(_codeToServiceCache.TryGetValue(code,out var serviceName)){
-      var notificationService = _factory.GetOrAddInstance<EmailNotificationService>(serviceName);
-      notificationService.Notify();
-    }
+      if (_codeToServiceCache.TryGetValue(code, out var serviceName))
+      {
+          var notificationService = _factory.GetOrAddInstance<EmailNotificationService>(serviceName);
+          notificationService.Notify();
+      }
   }
 }
 ```
