@@ -4,13 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<PackageId>Factory</PackageId>
+	<PackageId>DynamicFactory</PackageId>
 	<Version>1.0.0</Version>
 	<Authors>pauldin91</Authors>
+	  <Description>Dynamic thread safe factory implamentation</Description>
+	  <RepositoryUrl>https://github.com/pauldin91/Factory</RepositoryUrl>
+	  <PackageTags>factory, thread-safe, dynamic</PackageTags>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+
   </PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

@@ -8,6 +8,8 @@ namespace Factory
     {
         private readonly ConcurrentDictionary<Type, TIfc> _cache = [];
         private readonly ConcurrentDictionary<string, TIfc> _generalCache = [];
+        public IReadOnlyDictionary<Type, TIfc> Cache => _cache;
+        public IReadOnlyDictionary<string, TIfc> GeneralCache => _generalCache;
         
         
         public TIfc GetOrAddInstance<T>()
@@ -33,17 +35,6 @@ namespace Factory
                     return GetOrAddInstance(type);
                 }
             );
-        }
-        
-
-        IEnumerator<TIfc> IEnumerable<TIfc>.GetEnumerator()
-        {
-            return _cache.Values.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _cache.Values.GetEnumerator();
         }
         
     }
