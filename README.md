@@ -68,9 +68,9 @@ public class DemoService(IFactory<INotificationService> factory)
 }
 ```
 
-#### A more realistic scenario
+### A more realistic scenario
 
-#### SmsService.cs
+#### appsettings.json
 
 ````csharp
 {
@@ -84,9 +84,13 @@ public class DemoService(IFactory<INotificationService> factory)
   }
 }
 
+#### RealWorldOptions.cs
+
 public class RealWorldOptions {
   public Dictionary<string,string> CodeToServiceMap { get; set; }
 }
+
+#### RealWorldService.cs
 
 ```csharp
 public class RealWorldService
