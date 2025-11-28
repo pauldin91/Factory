@@ -99,22 +99,22 @@ public class RealWorldOptions
 ```csharp
 public class RealWorldService
 {
-  private readonly Dictionary<string, string> _codeToServiceCache = new();
-  private readonly IFactory<INotificationService> _factory;
+    private readonly Dictionary<string, string> _codeToServiceCache = new();
+    private readonly IFactory<INotificationService> _factory;
 
-  public RealWorldService(IConfiguration configuration, IFactory<INotificationService> factory)
-  {
-      _factory = factory;
-      _codeToServiceCache = ConfigurationBinder.Get<RealWorldOptions>(configuration.GetRequiredSection(nameof(RealWorldOptions)))!.CodeToServiceMap;
-  }
+    public RealWorldService(IOptions<RealWorldOptions> options, IFactory<INotificationService> factory)
+    {
+        _factory = factory;
+        _codeToServiceCache = options.Value.CodeToServiceMap;
+    }
 
-  public void DemoByCode(string code)
-  {
-      if (_codeToServiceCache.TryGetValue(code, out var serviceName))
-      {
-          var notificationService = _factory.GetOrAddInstance<EmailNotificationService>(serviceName);
-          notificationService.Notify();
-      }
-  }
+    public void DemoGetServiceByByCode(string code)
+    {
+        if (_codeToServiceCache.TryGetValue(code, out var serviceName))
+        {
+            var notificationService = _factory.GetOrAddInstance<EmailNotificationService>(serviceName);
+            notificationService.Notify();
+        }
+    }
 }
 ```
